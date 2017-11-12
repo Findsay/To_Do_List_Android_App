@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -21,16 +21,33 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
-    <ListView
-        android:id="@+id/lvTasks"
+    <Button
+        android:id="@+id/btnAddTask"
         android:layout_width="368dp"
-        android:layout_height="433dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="27dp"
+        android:onClick="addTask"
+        android:text="Add Task"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtListName"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <ListView
+        android:id="@+id/lvTasks"
+        android:layout_width="368dp"
+        android:layout_height="409dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginTop="20dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddTask" />
 </android.support.constraint.ConstraintLayout>

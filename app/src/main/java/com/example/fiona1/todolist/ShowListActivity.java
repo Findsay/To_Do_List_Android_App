@@ -22,13 +22,10 @@ public class ShowListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_list);
 
         dbHelper = new DBHelper(this);
-        List.deleteAll(dbHelper);
 
-        List.seedDB(dbHelper);
-        Task.seedDB(dbHelper);
+        ArrayList<List>lists = List.all(dbHelper);
 
-        ArrayList<List> lists = new ArrayList<>();
-        lists = List.all(dbHelper);
+
 
         ListAdapter listAdapter = new ListAdapter(this, lists);
         ListView listView = (ListView)findViewById(R.id.lvLists);
@@ -39,6 +36,7 @@ public class ShowListActivity extends AppCompatActivity {
         List list = (List) listItem.getTag();
         Intent intent = new Intent(this, ShowTasksActivity.class);
         intent.putExtra("id", list.getId());
+        intent.putExtra("name", list.getName());
         startActivity(intent);
     }
 }
