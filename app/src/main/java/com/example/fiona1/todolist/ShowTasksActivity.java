@@ -8,6 +8,7 @@ import android.widget.Adapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,6 +72,11 @@ public class ShowTasksActivity extends AppCompatActivity {
             ListView listView = (ListView)findViewById(R.id.lvTasks);
             listView.setAdapter(taskAdapter);
             taskAdapter.notifyDataSetChanged();
+
+            String displayText = task.getName()+ " added to Completed";
+            Toast.makeText(ShowTasksActivity.this,
+                    displayText,
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -44,7 +44,7 @@ public class AddTaskActivity extends AppCompatActivity {
         dbHelper = new DBHelper(this);
         extras = getIntent().getExtras();
         int listId = extras.getInt("listID");
-        String txtListName = extras.getString("name");
+        String txtListName = extras.getString("listName");
 
         String name = taskName.getText().toString();
         String date = dueDate.getText().toString();
