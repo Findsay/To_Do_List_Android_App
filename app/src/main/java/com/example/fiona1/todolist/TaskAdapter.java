@@ -6,9 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static com.example.fiona1.todolist.R.drawable.starfilled;
+import static com.example.fiona1.todolist.R.drawable.staroutline;
 
 /**
  * Created by Fiona1 on 12/11/2017.
@@ -30,6 +34,15 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         CheckBox taskName = (CheckBox) listItemView.findViewById(R.id.checkBoxTask);
         taskName.setText(currentTask.getName());
         taskName.setTag(currentTask);
+
+        ImageButton starredBtn = (ImageButton) listItemView.findViewById(R.id.btnStarred);
+        starredBtn.setTag(currentTask);
+        if (currentTask.getPinned().equals("Not Pinned")){
+            starredBtn.setImageResource(staroutline);
+        }else{
+            starredBtn.setImageResource(starfilled);
+        }
+
 
 //        listItemView.setTag(currentTask);
 

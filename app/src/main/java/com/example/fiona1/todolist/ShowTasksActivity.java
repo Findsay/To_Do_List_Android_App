@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import java.util.Date;
 
 import static android.R.attr.id;
 import static android.R.id.list;
+import static com.example.fiona1.todolist.R.drawable.starfilled;
 
 public class ShowTasksActivity extends AppCompatActivity {
 
@@ -78,5 +81,23 @@ public class ShowTasksActivity extends AppCompatActivity {
                     displayText,
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void clickStarred(View view){
+        Task task = (Task) view.getTag();
+        DBHelper dbHelper = new DBHelper(this);
+
+        if(task.getPinned().equals("Not Pinned")){
+            task.setPinned("Pinned");
+            task.update(dbHelper);
+        }else{
+            task.setPinned("Not Pinned");
+            task.update(dbHelper);
+        }
+        ArrayList<Task> tasks = Task.findByList(dbHelper, task.getListID());
+        TaskAdapter taskAdapter = new TaskAdapter(this, tasks);
+        ListView listView = (ListView)findViewById(R.id.lvTasks);
+        listView.setAdapter(taskAdapter);
+        taskAdapter.notifyDataSetChanged();
     }
 }
