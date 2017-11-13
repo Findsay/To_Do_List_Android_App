@@ -87,8 +87,6 @@ public class Task {
     }
 
 
-
-
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -146,7 +144,11 @@ public class Task {
         ArrayList<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TASKS_TABLE_NAME+" WHERE "+ TASKS_COLUMN_LISTID+ " = "+ listId, null);
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ? AND " + TASKS_COLUMN_STATUS + " = ?";
+        String stringId = String.valueOf(listId);
+        String[] args = new String[]{stringId, "Not Complete"};
+        Cursor cursor = db.rawQuery(sql, args);
+
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMN_ID));
             String name = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_NAME));
@@ -165,19 +167,39 @@ public class Task {
     }
 
 
-
-    public static boolean deleteAll(DBHelper dbHelper){
+    public static boolean deleteAll(DBHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DELETE FROM " + TASKS_TABLE_NAME);
         return true;
     }
 
-    public static void seedDB(DBHelper dbHelper){
+    public static void seedDB(DBHelper dbHelper) {
         ArrayList<List> lists = List.all(dbHelper);
-        for (List list : lists){
-            int id =   list.getId();
+        for (List list : lists) {
+            int id = list.getId();
             Task task = new Task("Test Task", "12/12/2017", "Blah", "Not Complete", "Not Pinned", id);
             task.save(dbHelper);
         }
+    }
+
+    public boolean update(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(TASKS_COLUMN_NAME, this.name);
+        cv.put(TASKS_COLUMN_DUEDATE, this.dueDate);
+        cv.put(TASKS_COLUMN_NOTES, this.notes);
+        cv.put(TASKS_COLUMN_STATUS, this.status);
+        cv.put(TASKS_COLUMN_PINNED, this.pinned);
+        cv.put(TASKS_COLUMN_LISTID, this.listID);
+
+        String id = String.valueOf(this.id);
+
+        String[] args = new String[]{id};
+
+        db.update(TASKS_TABLE_NAME, cv, TASKS_COLUMN_ID + " =?", args);
+
+        return true;
+
     }
 }

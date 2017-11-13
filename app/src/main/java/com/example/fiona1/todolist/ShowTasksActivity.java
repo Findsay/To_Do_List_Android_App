@@ -42,6 +42,8 @@ public class ShowTasksActivity extends AppCompatActivity {
         TaskAdapter taskAdapter = new TaskAdapter(this, tasks);
         ListView listView = (ListView)findViewById(R.id.lvTasks);
         listView.setAdapter(taskAdapter);
+
+
     }
 
     public void addTask(View button){
@@ -57,9 +59,18 @@ public class ShowTasksActivity extends AppCompatActivity {
     }
 
     public void onCheckboxClicked(View view){
+        Task task = (Task) view.getTag();
         boolean checked = ((CheckBox) view).isChecked();
         if (checked){
+            task.setStatus("Complete");
+            DBHelper dbHelper = new DBHelper(this);
+            task.update(dbHelper);
 
+            ArrayList<Task> tasks = Task.findByList(dbHelper, task.getListID());
+            TaskAdapter taskAdapter = new TaskAdapter(this, tasks);
+            ListView listView = (ListView)findViewById(R.id.lvTasks);
+            listView.setAdapter(taskAdapter);
+            taskAdapter.notifyDataSetChanged();
         }
     }
 }

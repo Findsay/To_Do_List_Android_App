@@ -29,8 +29,9 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         CheckBox taskName = (CheckBox) listItemView.findViewById(R.id.checkBoxTask);
         taskName.setText(currentTask.getName());
+        taskName.setTag(currentTask);
 
-        listItemView.setTag(currentTask);
+//        listItemView.setTag(currentTask);
 
         return listItemView;
     }
