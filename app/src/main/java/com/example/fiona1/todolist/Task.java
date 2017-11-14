@@ -254,4 +254,35 @@ public class Task {
         cursor.close();
         return tasks;
     }
+
+    public static ArrayList<Task> findAllStarred(DBHelper dbHelper) {
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_PINNED + " = ?" +
+                " AND " + TASKS_COLUMN_STATUS + " = ? " +
+                "ORDER BY " + TASKS_COLUMN_PINNED + " DESC," + TASKS_COLUMN_DUEDATE + " ASC";
+
+        String[] args = new String[]{"Pinned", "Not Complete"};
+        Cursor cursor = db.rawQuery(sql, args);
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMN_ID));
+            String name = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_NAME));
+            String dueDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_DUEDATE));
+            String notes = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_NOTES));
+            String status = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_STATUS));
+            String pinned = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_PINNED));
+            int listID = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMN_LISTID));
+
+
+            Task task = new Task(id, name, dueDate, notes, status, pinned, listID);
+            tasks.add(task);
+        }
+        cursor.close();
+        return tasks;
+    }
+
+
+
 }

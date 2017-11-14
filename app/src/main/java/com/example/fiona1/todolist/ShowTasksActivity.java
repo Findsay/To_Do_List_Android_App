@@ -31,6 +31,7 @@ public class ShowTasksActivity extends AppCompatActivity {
     private DBHelper dbHelper;
     private TextView textListName;
     private Button showHide;
+    private Button addTask;
     private TaskAdapter taskAdapter;
     private ArrayList<Task> tasks;
     private ListView listView;
@@ -39,6 +40,7 @@ public class ShowTasksActivity extends AppCompatActivity {
     private ArrayList<Task> completedTasks;
     private int listId;
     private String listName;
+    private Boolean specialList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +55,22 @@ public class ShowTasksActivity extends AppCompatActivity {
         textListName = (TextView) findViewById(R.id.txtListName);
         textListName.setText(listName);
 
+        addTask = (Button) findViewById(R.id.btnAddTask);
+        specialList = (listName.equals("Today") || listName.equals("Starred"));
+
+        if (specialList) {
+            addTask.setVisibility(View.GONE);
+        } else {
+            addTask.setVisibility(View.VISIBLE);
+        }
+
+
         listView = (ListView) findViewById(R.id.lvTasks);
         createTaskAdapter();
 
-        showHide = (Button)findViewById(R.id.btnShowHide);
+        showHide = (Button) findViewById(R.id.btnShowHide);
         completedListView = (ListView) findViewById(R.id.lvCompleted);
         createCompletedTaskAdapter();
-
 
 
     }
@@ -110,7 +121,14 @@ public class ShowTasksActivity extends AppCompatActivity {
     }
 
     public void createTaskAdapter() {
-        tasks = Task.findByList(dbHelper, listId);
+        if (specialList) {
+            if (listName.equals("Starred")) {
+                tasks = Task.findAllStarred(dbHelper);
+            }
+
+        } else {
+            tasks = Task.findByList(dbHelper, listId);
+        }
         taskAdapter = new TaskAdapter(this, tasks);
         listView.setAdapter(taskAdapter);
         LayoutParams list = (LayoutParams) listView.getLayoutParams();
@@ -124,32 +142,30 @@ public class ShowTasksActivity extends AppCompatActivity {
         completedListView.setAdapter(completedTaskAdapter);
         completedListView.setVisibility(View.GONE);
 
-        if(completedTasks.size() == 0){
+        if (completedTasks.size() == 0) {
             showHide.setVisibility(View.GONE);
 
-        }else{
+        } else {
             showHide.setVisibility(View.VISIBLE);
             showHide.setText(R.string.Show);
         }
     }
 
-    public void clickShowHide(View button){
+    public void clickShowHide(View button) {
         String text = showHide.getText().toString();
-        if (text.equals("Show Completed")){
+        if (text.equals("Show Completed")) {
             showHide.setText(R.string.Hide);
             completedListView.setVisibility(View.VISIBLE);
             LayoutParams list = (LayoutParams) completedListView.getLayoutParams();
             list.height = 200 * completedTasks.size();
 
-        }else{
+        } else {
             showHide.setText(R.string.Show);
             completedListView.setVisibility(View.GONE);
 
 
         }
     }
-
-
 
 
 }
