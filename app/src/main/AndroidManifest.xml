@@ -18,7 +18,9 @@
         </activity>
         <activity android:name=".ShowTasksActivity" />
         <activity android:name=".AddTaskActivity" />
-        <activity android:name=".ViewEditTask"></activity>
+        <activity
+            android:name=".ViewEditTask"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

@@ -17,19 +17,17 @@ import static com.example.fiona1.todolist.R.id.editSubTaskName;
 
 public class ViewEditTask extends AppCompatActivity {
 
-    private TextView listName;
     private Bundle extras;
-
+    private TextView listName;
     private EditText taskName;
     private EditText dueDate;
     private EditText taskNote;
     private TextView listname;
-
-
+    private EditText subTaskName;
+    private int taskId;
     private SubTaskAdapter subTaskAdapter;
     private ArrayList<SubTask> subTasks;
-
-    DBHelper dbHelper;
+    private DBHelper dbHelper;
     private ListView listView;
 
     @Override
@@ -38,12 +36,11 @@ public class ViewEditTask extends AppCompatActivity {
         setContentView(R.layout.activity_view_edit_task);
 
         extras = getIntent().getExtras();
-        int taskId = extras.getInt("taskID");
+        taskId = extras.getInt("taskID");
 
         dbHelper = new DBHelper(this);
         Task task = Task.findTaskbyID(dbHelper, taskId);
-        List list = List.findListbyID(dbHelper,task.getListID());
-
+        List list = List.findListbyID(dbHelper, task.getListID());
 
         taskName = (EditText) findViewById(R.id.editTaskName2);
         taskName.setText(task.getName());
@@ -53,8 +50,8 @@ public class ViewEditTask extends AppCompatActivity {
         dueDate.setText(task.getDueDate());
         dueDate.setEnabled(false);
 
-        listname = (TextView)findViewById(R.id.txtListName2);
-        listname.setText(list.getName());
+        listName = (TextView) findViewById(R.id.txtListName2);
+        listName.setText(list.getName());
 
         taskNote = (EditText) findViewById(R.id.editNote2);
         taskNote.setText(task.getNotes());
@@ -62,14 +59,8 @@ public class ViewEditTask extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-
-
-        subTasks = SubTask.findByTaskId(dbHelper, taskId);
-
-        subTaskAdapter = new SubTaskAdapter(this, subTasks);
-
-        listView = (ListView)findViewById(R.id.lvSubTasks);
-        listView.setAdapter(subTaskAdapter);
+        listView = (ListView) findViewById(R.id.lvSubTasks);
+        createListAdapter();
 
 //        if (subTaskAdapter.getCount() == 0){
 //            listView.setVisibility(View.GONE);
@@ -79,33 +70,30 @@ public class ViewEditTask extends AppCompatActivity {
 
     }
 
-
-
+    public void createListAdapter() {
+        subTasks = SubTask.findByTaskId(dbHelper, taskId);
+        subTaskAdapter = new SubTaskAdapter(ViewEditTask.this, subTasks);
+        listView.setAdapter(subTaskAdapter);
+    }
 
     public void addSubTask(View button) {
-        extras = getIntent().getExtras();
-        final int taskId = extras.getInt("taskID");
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add a subtask");
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.subtask_dialog_view, null);
-        final EditText editText = (EditText)dialogView.findViewById(R.id.editSubTaskName);
+        subTaskName = (EditText) dialogView.findViewById(R.id.editSubTaskName);
         builder.setView(dialogView);
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String text = editText.getText().toString();
+                String text = subTaskName.getText().toString();
                 SubTask task = new SubTask(text, "Not Complete", taskId);
                 task.save(dbHelper);
-                subTasks = SubTask.findByTaskId(dbHelper, taskId);
-                subTaskAdapter = new SubTaskAdapter(ViewEditTask.this, subTasks);
-                listView.setAdapter(subTaskAdapter);
+                createListAdapter();
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-
-
     }
 
 }
