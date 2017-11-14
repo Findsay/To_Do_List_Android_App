@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -94,6 +95,16 @@ public class ViewEditTask extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void onCheckboxClicked(View view) {
+        SubTask subTask = (SubTask) view.getTag();
+        boolean checked = ((CheckBox) view).isChecked();
+        if (checked) {
+            subTask.setStatus("Complete");
+            subTask.update(dbHelper);
+            createListAdapter();
+        }
     }
 
 }

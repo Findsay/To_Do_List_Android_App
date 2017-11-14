@@ -45,13 +45,17 @@ public class SubTask {
         this.id = id;
     }
 
-    public SubTask(String name, String status) {
-        this.name = name;
-        this.status = status;
-    }
 
     public String getName() {
         return name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean save(DBHelper dbHelper) {
@@ -90,6 +94,23 @@ public class SubTask {
         }
         cursor.close();
         return subtasks;
+    }
+
+    public boolean update(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(SUBTASKS_COLUMN_NAME, this.name);
+        cv.put(SUBTASKS_COLUMN_STATUS, this.status);
+        cv.put(SUBTASKS_COLUMN_TASKID, this.taskID);
+        String id = String.valueOf(this.id);
+
+        String[] args = new String[]{id};
+
+        db.update(SUBTASKS_TABLE_NAME, cv, SUBTASKS_COLUMN_ID + " =?", args);
+
+        return true;
+
     }
 
 }
