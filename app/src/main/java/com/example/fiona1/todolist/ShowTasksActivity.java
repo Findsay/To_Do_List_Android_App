@@ -114,14 +114,13 @@ public class ShowTasksActivity extends AppCompatActivity {
         taskAdapter = new TaskAdapter(this, tasks);
         listView.setAdapter(taskAdapter);
         LayoutParams list = (LayoutParams) listView.getLayoutParams();
-        list.height = 160 * tasks.size();
+        list.height = 200 * tasks.size();
         listView.setAdapter(taskAdapter);
     }
 
     public void createCompletedTaskAdapter() {
         completedTasks = Task.findCompleted(dbHelper, listId);
         completedTaskAdapter = new TaskAdapter(this, completedTasks);
-        completedListView.setAdapter(completedTaskAdapter);
         completedListView.setAdapter(completedTaskAdapter);
         completedListView.setVisibility(View.GONE);
 
@@ -140,7 +139,7 @@ public class ShowTasksActivity extends AppCompatActivity {
             showHide.setText(R.string.Hide);
             completedListView.setVisibility(View.VISIBLE);
             LayoutParams list = (LayoutParams) completedListView.getLayoutParams();
-            list.height = 160 * completedTasks.size();
+            list.height = 200 * completedTasks.size();
 
         }else{
             showHide.setText(R.string.Show);

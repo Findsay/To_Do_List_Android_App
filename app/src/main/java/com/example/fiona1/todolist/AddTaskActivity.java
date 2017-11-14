@@ -56,7 +56,7 @@ public class AddTaskActivity extends AppCompatActivity {
         String name = taskName.getText().toString();
         String date = chooseDate.getText().toString();
 
-        if ( date.equals(R.string.dueDate)){
+        if ( date.equals("Set Due Date")){
             date = "9999/99/99";
         }
 

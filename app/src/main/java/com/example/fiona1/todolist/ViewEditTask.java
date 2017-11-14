@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -67,18 +68,23 @@ public class ViewEditTask extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.lvSubTasks);
         createListAdapter();
 
-//        if (subTaskAdapter.getCount() == 0){
-//            listView.setVisibility(View.GONE);
-//        }else{
-//            listView.setVisibility(View.VISIBLE);
-//        }
-
     }
 
     public void createListAdapter() {
         subTasks = SubTask.findByTaskId(dbHelper, taskId);
         subTaskAdapter = new SubTaskAdapter(ViewEditTask.this, subTasks);
         listView.setAdapter(subTaskAdapter);
+        if (subTaskAdapter.getCount() == 0) {
+            listView.setVisibility(View.GONE);
+        } else {
+            listView.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
+            ViewGroup.LayoutParams list = (ViewGroup.LayoutParams) listView.getLayoutParams();
+            list.height = 200 * subTasks.size();
+
+        }
+
+
     }
 
     public void addSubTask(View button) {
@@ -111,7 +117,7 @@ public class ViewEditTask extends AppCompatActivity {
         }
     }
 
-    public void onClickOk(View button){
+    public void onClickOk(View button) {
         task.update(dbHelper);
         Intent intent = new Intent(this, ShowTasksActivity.class);
         intent.putExtra("id", list.getId());
