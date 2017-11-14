@@ -33,8 +33,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         taskName = (EditText) findViewById(R.id.editTaskName);
         chooseDate = (Button) findViewById(R.id.btnDueDate);
-        chooseDate.setText("Due Date");
-//        dueDate = (EditText) findViewById(R.id.editDate);
+        chooseDate.setText(R.string.dueDate);
         taskNote = (EditText) findViewById(R.id.editTaskNote);
 
         extras = getIntent().getExtras();
@@ -57,7 +56,7 @@ public class AddTaskActivity extends AppCompatActivity {
         String name = taskName.getText().toString();
         String date = chooseDate.getText().toString();
 
-        if ( date.equals("Due Date")){
+        if ( date.equals(R.string.dueDate)){
             date = "9999/99/99";
         }
 

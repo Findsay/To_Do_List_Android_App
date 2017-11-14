@@ -99,11 +99,7 @@ public class ShowTasksActivity extends AppCompatActivity {
             task.setPinned("Not Pinned");
             task.update(dbHelper);
         }
-        ArrayList<Task> tasks = Task.findByList(dbHelper, task.getListID());
-        TaskAdapter taskAdapter = new TaskAdapter(this, tasks);
-        ListView listView = (ListView) findViewById(R.id.lvTasks);
-        listView.setAdapter(taskAdapter);
-        taskAdapter.notifyDataSetChanged();
+        createTaskAdapter();
     }
 
     public void editTask(View listItem) {

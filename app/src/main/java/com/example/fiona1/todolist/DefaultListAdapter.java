@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class DefaultListAdapter extends ArrayAdapter<List> {
 
     private CheckBox checkBox;
+    private TextView textView;
 
     public DefaultListAdapter(Context context, ArrayList<List> defaultLists){
         super(context, 0, defaultLists);
@@ -30,8 +31,10 @@ public class DefaultListAdapter extends ArrayAdapter<List> {
         List currentList = getItem(position);
 
         checkBox = (CheckBox) listItemView.findViewById(R.id.checkBoxDfList);
-        checkBox.setText(currentList.getName());
         checkBox.setTag(currentList);
+
+        textView = (TextView) listItemView.findViewById(R.id.txtDefault);
+        textView.setText(currentList.getName());
 
         return listItemView;
     }
