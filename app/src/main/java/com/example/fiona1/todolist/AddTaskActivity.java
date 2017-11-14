@@ -58,7 +58,7 @@ public class AddTaskActivity extends AppCompatActivity {
         String date = chooseDate.getText().toString();
 
         if ( date.equals("Due Date")){
-            date = "";
+            date = "9999/99/99";
         }
 
         String note = taskNote.getText().toString();
@@ -75,7 +75,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View v) {
-        datePicker.show(getFragmentManager(),"Date Picker");
+        datePicker.show(getFragmentManager(),"Today Picker");
     }
 
 

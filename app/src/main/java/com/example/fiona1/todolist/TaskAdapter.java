@@ -26,13 +26,14 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
     private TextView txtTaskName;
     private TextView txtDate;
-    private Date date;
+    private Today today;
+    private String dateDisplay;
 
-    public TaskAdapter(Context context, ArrayList<Task> tasks){
+    public TaskAdapter(Context context, ArrayList<Task> tasks) {
         super(context, 0, tasks);
     }
 
-    public View getView(int position, View listItemView, ViewGroup parent){
+    public View getView(int position, View listItemView, ViewGroup parent) {
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.task_item, parent, false);
         }
@@ -46,16 +47,20 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         txtTaskName.setText(currentTask.getName());
 
         txtDate = (TextView) listItemView.findViewById(R.id.txtDate);
-        txtDate.setText(currentTask.getDueDate());
-
-
+        today = new Today();
+        if (currentTask.getDueDate().equals("9999/99/99")) {
+            dateDisplay = "";
+        } else {
+            dateDisplay = today.compareDate(currentTask.getDueDate());
+        }
+        txtDate.setText(dateDisplay);
 
 
         ImageButton starredBtn = (ImageButton) listItemView.findViewById(R.id.btnStarred);
         starredBtn.setTag(currentTask);
-        if (currentTask.getPinned().equals("Not Pinned")){
+        if (currentTask.getPinned().equals("Not Pinned")) {
             starredBtn.setImageResource(staroutline);
-        }else{
+        } else {
             starredBtn.setImageResource(starfilled);
         }
 
