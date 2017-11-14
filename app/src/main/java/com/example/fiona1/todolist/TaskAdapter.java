@@ -1,6 +1,7 @@
 package com.example.fiona1.todolist;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +41,18 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         Task currentTask = getItem(position);
 
+        txtTaskName = (TextView) listItemView.findViewById(R.id.txtCheckboxTaskName);
+        txtTaskName.setText(currentTask.getName());
+
         CheckBox checkbox = (CheckBox) listItemView.findViewById(R.id.checkBoxTask);
         checkbox.setTag(currentTask);
 
-        txtTaskName = (TextView) listItemView.findViewById(R.id.txtCheckboxTaskName);
-        txtTaskName.setText(currentTask.getName());
+        if (currentTask.getStatus().equals("Complete")){
+            checkbox.setChecked(true);
+            txtTaskName.setPaintFlags(txtTaskName.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+
+
 
         txtDate = (TextView) listItemView.findViewById(R.id.txtDate);
         today = new Today();
@@ -66,6 +74,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
 
         listItemView.setTag(currentTask);
+
 
         return listItemView;
     }
