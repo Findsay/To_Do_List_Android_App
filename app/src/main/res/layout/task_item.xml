@@ -10,8 +10,8 @@
 
     <CheckBox
         android:id="@+id/checkBoxTask"
-        android:layout_width="151dp"
-        android:layout_height="39dp"
+        android:layout_width="31dp"
+        android:layout_height="42dp"
         android:checked="false"
         tools:text="TaskName"
         android:onClick="onCheckboxClicked"
@@ -22,10 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/btnStarred"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageButton
         android:id="@+id/btnStarred"
@@ -41,5 +38,19 @@
         app:layout_constraintTop_toTopOf="@+id/checkBoxTask"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/staroutline" />
+
+    <TextView
+        android:id="@+id/txtCheckboxTaskName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintLeft_toRightOf="@+id/checkBoxTask"
+        app:layout_constraintRight_toLeftOf="@+id/btnStarred"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

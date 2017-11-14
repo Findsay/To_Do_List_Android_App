@@ -20,6 +20,8 @@ import static com.example.fiona1.todolist.R.drawable.staroutline;
 
 public class TaskAdapter extends ArrayAdapter<Task> {
 
+    private TextView txtTaskName;
+
     public TaskAdapter(Context context, ArrayList<Task> tasks){
         super(context, 0, tasks);
     }
@@ -31,9 +33,11 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         Task currentTask = getItem(position);
 
-        CheckBox taskName = (CheckBox) listItemView.findViewById(R.id.checkBoxTask);
-        taskName.setText(currentTask.getName());
-        taskName.setTag(currentTask);
+        CheckBox checkbox = (CheckBox) listItemView.findViewById(R.id.checkBoxTask);
+        checkbox.setTag(currentTask);
+
+        txtTaskName = (TextView) listItemView.findViewById(R.id.txtCheckboxTaskName);
+        txtTaskName.setText(currentTask.getName());
 
         ImageButton starredBtn = (ImageButton) listItemView.findViewById(R.id.btnStarred);
         starredBtn.setTag(currentTask);
