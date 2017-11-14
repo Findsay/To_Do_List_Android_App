@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class ListAdapter extends ArrayAdapter<List> {
 
+
     public ListAdapter(Context context, ArrayList<List> lists){
         super(context, 0, lists);
     }
@@ -29,9 +30,6 @@ public class ListAdapter extends ArrayAdapter<List> {
 
         TextView listName = (TextView)listItemView.findViewById(R.id.txtListName);
         listName.setText(currentList.getName().toString());
-
-//        TextView taskCount = (TextView)listItemView.findViewById(R.id.txtTaskCount);
-//        taskCount.setText(currentList.getTaskCount().toString());
 
         listItemView.setTag(currentList);
 

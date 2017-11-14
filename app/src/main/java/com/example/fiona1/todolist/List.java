@@ -32,10 +32,8 @@ public class List {
     private int id;
 
 
-
     public List(String name) {
         this.name = name;
-
     }
 
     public List(int id, String name) {
@@ -78,9 +76,17 @@ public class List {
         return lists;
     }
 
-    public static boolean deleteAll(DBHelper dbHelper){
+    public static boolean deleteAll(DBHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("DELETE FROM " + LISTS_TABLE_NAME);
+        return true;
+    }
+
+    public boolean delete(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String stringId = String.valueOf(id);
+        String[] args = new String[]{stringId};
+        db.delete(LISTS_TABLE_NAME, LISTS_COLUMN_ID + " =?", args);
         return true;
     }
 
@@ -102,19 +108,30 @@ public class List {
     }
 
 
-    public static void seedDB(DBHelper dbHelper){
-        for (Category category : Category.values()){
-            String name =   category.getName();
-            List list = new List(name);
-            list.save(dbHelper);
-        }
+    public static void seedDB(DBHelper dbHelper) {
+        List list = new List("Inbox");
+        list.save(dbHelper);
+        List list2 = new List("Today");
+        list2.save(dbHelper);
+        List list3 = new List("Starred");
+        list3.save(dbHelper);
     }
 
-
-
-
-
-
-
-
+    public int getTaskCount(DBHelper dbHelper){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ?";
+        String stringId = String.valueOf(id);
+        String[] args = new String[]{stringId};
+        Cursor cursor = db.rawQuery(sql, args);
+        int count = cursor.getCount();
+        return count;
+    }
 }
+
+
+
+
+
+
+
+

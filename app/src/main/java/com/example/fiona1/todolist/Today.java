@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 public class Today {
 
-    public static String getDate(){
+    public static String getDate() {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -18,10 +18,10 @@ public class Today {
         return date;
     }
 
-    public String compareDate(String date){
-        if(date.equals(getDate())){
+    public String compareDate(String date) {
+        if (date.equals(getDate())) {
             return "Today";
-        }else{
+        } else {
             return date;
         }
     }

@@ -13,29 +13,14 @@ import static com.example.fiona1.todolist.List.all;
 
 public class ShowListActivity extends AppCompatActivity {
 
-    DBHelper dbHelper;
-
+   private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_list);
-
         dbHelper = new DBHelper(this);
-
-
-        List.deleteAll(dbHelper);
-
-
-
-        List.seedDB(dbHelper);
-
-
         ArrayList<List>lists = List.all(dbHelper);
-
-
-
-
         ListAdapter listAdapter = new ListAdapter(this, lists);
         ListView listView = (ListView)findViewById(R.id.lvLists);
         listView.setAdapter(listAdapter);

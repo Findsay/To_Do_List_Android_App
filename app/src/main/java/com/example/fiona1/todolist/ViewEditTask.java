@@ -1,6 +1,7 @@
 package com.example.fiona1.todolist;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import static android.R.id.edit;
+import static android.R.id.list;
 import static com.example.fiona1.todolist.R.id.editSubTaskName;
 
 public class ViewEditTask extends AppCompatActivity {
@@ -30,6 +32,8 @@ public class ViewEditTask extends AppCompatActivity {
     private ArrayList<SubTask> subTasks;
     private DBHelper dbHelper;
     private ListView listView;
+    private Task task;
+    private List list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +44,8 @@ public class ViewEditTask extends AppCompatActivity {
         taskId = extras.getInt("taskID");
 
         dbHelper = new DBHelper(this);
-        Task task = Task.findTaskbyID(dbHelper, taskId);
-        List list = List.findListbyID(dbHelper, task.getListID());
+        task = Task.findTaskbyID(dbHelper, taskId);
+        list = List.findListbyID(dbHelper, task.getListID());
 
         taskName = (EditText) findViewById(R.id.editTaskName2);
         taskName.setText(task.getName());
@@ -105,6 +109,14 @@ public class ViewEditTask extends AppCompatActivity {
             subTask.update(dbHelper);
             createListAdapter();
         }
+    }
+
+    public void onClickOk(View button){
+        task.update(dbHelper);
+        Intent intent = new Intent(this, ShowTasksActivity.class);
+        intent.putExtra("id", list.getId());
+        intent.putExtra("name", list.getName());
+        startActivity(intent);
     }
 
 }

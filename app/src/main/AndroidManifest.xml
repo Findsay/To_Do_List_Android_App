@@ -10,17 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ShowListActivity">
+
+        </activity>
+        <activity
+            android:name=".ShowTasksActivity"
+            android:parentActivityName="com.example.fiona1.todolist.ShowListActivity" />
+
+        <activity android:name=".AddTaskActivity"
+          />
+
+        <activity
+            android:name=".ViewEditTask"
+            android:windowSoftInputMode="stateHidden" />
+
+        <activity android:name=".ToDoListLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowTasksActivity" />
-        <activity android:name=".AddTaskActivity" />
-        <activity
-            android:name=".ViewEditTask"
-            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>

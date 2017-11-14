@@ -6,9 +6,6 @@ package com.example.fiona1.todolist;
 
 public enum Category {
 
-    INBOX("Inbox"),
-    TODAY("Today"),
-    PINNED("Pinned"),
     WORK("Work"),
     HOME("Home"),
     SHOPPING("Shopping"),

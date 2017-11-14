@@ -21,8 +21,6 @@ import static com.example.fiona1.todolist.R.drawable.starfilled;
 
 public class ShowTasksActivity extends AppCompatActivity {
 
-    private Task task1;
-    private Task task2;
     private Bundle extras;
     private DBHelper dbHelper;
     private TextView textListName;
@@ -46,9 +44,6 @@ public class ShowTasksActivity extends AppCompatActivity {
         TaskAdapter taskAdapter = new TaskAdapter(this, tasks);
         ListView listView = (ListView)findViewById(R.id.lvTasks);
         listView.setAdapter(taskAdapter);
-
-
-
 
     }
 
