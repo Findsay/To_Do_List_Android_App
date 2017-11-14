@@ -144,7 +144,7 @@ public class Task {
         ArrayList<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ? AND " + TASKS_COLUMN_STATUS + " = ? ORDER BY " + TASKS_COLUMN_PINNED+ " DESC";
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ? AND " + TASKS_COLUMN_STATUS + " = ? ORDER BY " + TASKS_COLUMN_PINNED + " DESC";
         String stringId = String.valueOf(listId);
         String[] args = new String[]{stringId, "Not Complete"};
         Cursor cursor = db.rawQuery(sql, args);
@@ -201,5 +201,27 @@ public class Task {
 
         return true;
 
+    }
+
+    public static Task findTaskbyID(DBHelper dbHelper, int taskId) {
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_ID + " = ?";
+        String stringId = String.valueOf(taskId);
+        String[] args = new String[]{stringId};
+        Cursor cursor = db.rawQuery(sql, args);
+
+        cursor.moveToFirst();
+        int id = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMN_ID));
+        String name = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_NAME));
+        String dueDate = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_DUEDATE));
+        String notes = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_NOTES));
+        String status = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_STATUS));
+        String pinned = cursor.getString(cursor.getColumnIndex(TASKS_COLUMN_PINNED));
+        int listID = cursor.getInt(cursor.getColumnIndex(TASKS_COLUMN_LISTID));
+
+        Task task = new Task(id, name, dueDate, notes, status, pinned, listID);
+        cursor.close();
+        return task;
     }
 }

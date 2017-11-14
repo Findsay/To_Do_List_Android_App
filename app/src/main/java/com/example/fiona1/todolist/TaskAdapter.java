@@ -44,8 +44,10 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         }
 
 
-//        listItemView.setTag(currentTask);
+        listItemView.setTag(currentTask);
 
         return listItemView;
     }
+
+
 }

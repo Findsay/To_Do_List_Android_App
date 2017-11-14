@@ -23,7 +23,16 @@ public class ShowListActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
+
+        List.deleteAll(dbHelper);
+
+
+
+        List.seedDB(dbHelper);
+
+
         ArrayList<List>lists = List.all(dbHelper);
+
 
 
 

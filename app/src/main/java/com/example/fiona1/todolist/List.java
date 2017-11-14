@@ -84,6 +84,23 @@ public class List {
         return true;
     }
 
+    public static List findListbyID(DBHelper dbHelper, int listId) {
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String sql = "SELECT * FROM " + LISTS_TABLE_NAME + " WHERE " + LISTS_COLUMN_ID + " = ?";
+        String stringId = String.valueOf(listId);
+        String[] args = new String[]{stringId};
+        Cursor cursor = db.rawQuery(sql, args);
+
+        cursor.moveToFirst();
+        int id = cursor.getInt(cursor.getColumnIndex(LISTS_COLUMN_ID));
+        String name = cursor.getString(cursor.getColumnIndex(LISTS_COLUMN_NAME));
+
+        List list = new List(id, name);
+        cursor.close();
+        return list;
+    }
+
 
     public static void seedDB(DBHelper dbHelper){
         for (Category category : Category.values()){

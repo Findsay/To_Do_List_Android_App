@@ -48,6 +48,8 @@ public class ShowTasksActivity extends AppCompatActivity {
         listView.setAdapter(taskAdapter);
 
 
+
+
     }
 
     public void addTask(View button){
@@ -99,5 +101,12 @@ public class ShowTasksActivity extends AppCompatActivity {
         ListView listView = (ListView)findViewById(R.id.lvTasks);
         listView.setAdapter(taskAdapter);
         taskAdapter.notifyDataSetChanged();
+    }
+
+    public void editTask(View listItem){
+        Task task = (Task) listItem.getTag();
+        Intent intent = new Intent(this, ViewEditTask.class);
+       intent.putExtra("taskID", task.getId());
+        startActivity(intent);
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ToDoList</string>
+    <string name="title_activity_dialog_add_sub_task">dialogAddSubTask</string>
 </resources>
