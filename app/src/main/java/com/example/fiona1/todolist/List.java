@@ -109,12 +109,11 @@ public class List {
 
 
     public static void seedDB(DBHelper dbHelper) {
-        List list = new List("Inbox");
-        list.save(dbHelper);
-        List list2 = new List("Today");
-        list2.save(dbHelper);
-        List list3 = new List("Starred");
-        list3.save(dbHelper);
+
+//        List list2 = new List("Today");
+//        list2.save(dbHelper);
+//        List list3 = new List("Starred");
+//        list3.save(dbHelper);
     }
 
     public int getTaskCount(DBHelper dbHelper){

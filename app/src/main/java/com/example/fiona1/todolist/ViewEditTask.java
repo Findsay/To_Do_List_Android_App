@@ -89,7 +89,7 @@ public class ViewEditTask extends AppCompatActivity {
 
     public void addSubTask(View button) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Add a subtask");
+        builder.setTitle("Add subtask");
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.subtask_dialog_view, null);
         subTaskName = (EditText) dialogView.findViewById(R.id.editSubTaskName);
@@ -101,6 +101,11 @@ public class ViewEditTask extends AppCompatActivity {
                 SubTask task = new SubTask(text, "Not Complete", taskId);
                 task.save(dbHelper);
                 createListAdapter();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
             }
         });
         AlertDialog dialog = builder.create();
