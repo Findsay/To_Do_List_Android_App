@@ -9,7 +9,11 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import static com.example.fiona1.todolist.R.drawable.starfilled;
 import static com.example.fiona1.todolist.R.drawable.staroutline;
@@ -21,6 +25,8 @@ import static com.example.fiona1.todolist.R.drawable.staroutline;
 public class TaskAdapter extends ArrayAdapter<Task> {
 
     private TextView txtTaskName;
+    private TextView txtDate;
+    private Date date;
 
     public TaskAdapter(Context context, ArrayList<Task> tasks){
         super(context, 0, tasks);
@@ -38,6 +44,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
 
         txtTaskName = (TextView) listItemView.findViewById(R.id.txtCheckboxTaskName);
         txtTaskName.setText(currentTask.getName());
+
+        txtDate = (TextView) listItemView.findViewById(R.id.txtDate);
+        txtDate.setText(currentTask.getDueDate());
+
+
+
 
         ImageButton starredBtn = (ImageButton) listItemView.findViewById(R.id.btnStarred);
         starredBtn.setTag(currentTask);

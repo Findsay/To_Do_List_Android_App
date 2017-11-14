@@ -144,7 +144,9 @@ public class Task {
         ArrayList<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ? AND " + TASKS_COLUMN_STATUS + " = ? ORDER BY " + TASKS_COLUMN_PINNED + " DESC";
+        String sql = "SELECT * FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_LISTID + " = ?" +
+                " AND " + TASKS_COLUMN_STATUS + " = ? " +
+                "ORDER BY " + TASKS_COLUMN_PINNED + " DESC," + TASKS_COLUMN_DUEDATE + " ASC";
         String stringId = String.valueOf(listId);
         String[] args = new String[]{stringId, "Not Complete"};
         Cursor cursor = db.rawQuery(sql, args);

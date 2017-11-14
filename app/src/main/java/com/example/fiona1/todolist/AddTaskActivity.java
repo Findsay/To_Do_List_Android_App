@@ -1,6 +1,8 @@
 package com.example.fiona1.todolist;
 
+import android.app.DialogFragment;
 import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         taskName = (EditText) findViewById(R.id.editTaskName);
-        dueDate = (EditText) findViewById(R.id.editDate);
+//        dueDate = (EditText) findViewById(R.id.editDate);
         taskNote = (EditText) findViewById(R.id.editTaskNote);
 
         extras = getIntent().getExtras();
@@ -46,7 +48,7 @@ public class AddTaskActivity extends AppCompatActivity {
         String txtListName = extras.getString("listName");
 
         String name = taskName.getText().toString();
-        String date = dueDate.getText().toString();
+        String date = "";
         String note = taskNote.getText().toString();
         String status = "Not Complete";
         String pinned = "Not Pinned";
@@ -58,6 +60,11 @@ public class AddTaskActivity extends AppCompatActivity {
         intent.putExtra("name", txtListName);
         startActivity(intent);
 
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(),"Date Picker");
     }
 
 

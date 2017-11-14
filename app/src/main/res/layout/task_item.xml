@@ -45,12 +45,23 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
         android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.036"
+        app:layout_constraintHorizontal_bias="0.039"
         app:layout_constraintLeft_toRightOf="@+id/checkBoxTask"
         app:layout_constraintRight_toLeftOf="@+id/btnStarred"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="76dp"
+        android:layout_height="19dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="3dp"
+        android:text="TextView"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintLeft_toRightOf="@+id/checkBoxTask"
+        app:layout_constraintTop_toBottomOf="@+id/txtCheckboxTaskName" />
 
 </android.support.constraint.ConstraintLayout>
