@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,10 +14,12 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private TextView listName;
     private Bundle extras;
+    private DatePickerFragment datePicker;
 
     private EditText taskName;
-    private EditText dueDate;
     private EditText taskNote;
+    private Button chooseDate;
+    private String date;
 
     DBHelper dbHelper;
 
@@ -26,7 +29,11 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        datePicker = new DatePickerFragment();
+
         taskName = (EditText) findViewById(R.id.editTaskName);
+        chooseDate = (Button) findViewById(R.id.btnDueDate);
+        chooseDate.setText("Due Date");
 //        dueDate = (EditText) findViewById(R.id.editDate);
         taskNote = (EditText) findViewById(R.id.editTaskNote);
 
@@ -48,7 +55,12 @@ public class AddTaskActivity extends AppCompatActivity {
         String txtListName = extras.getString("listName");
 
         String name = taskName.getText().toString();
-        String date = "";
+        String date = chooseDate.getText().toString();
+
+        if ( date.equals("Due Date")){
+            date = "";
+        }
+
         String note = taskNote.getText().toString();
         String status = "Not Complete";
         String pinned = "Not Pinned";
@@ -63,8 +75,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getFragmentManager(),"Date Picker");
+        datePicker.show(getFragmentManager(),"Date Picker");
     }
 
 

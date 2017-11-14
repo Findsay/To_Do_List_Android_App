@@ -21,7 +21,7 @@ public class TaskTest {
 
     @Before
     public void setUp() throws Exception {
-        Date date = new Date(11 / 10 / 2017);
+        String date = "12/12/2017";
         String notes = "This is a note";
         String status = "Not Complete";
         String pinned = "Pinned";
