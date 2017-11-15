@@ -130,7 +130,8 @@ public class ShowTasksActivity extends AppCompatActivity {
                 tasks = Task.findAllStarred(dbHelper);
             }else{
                 String date = Today.getDate();
-                tasks = Task.findToday(dbHelper, date);
+                String status = "Not Complete";
+                tasks = Task.findToday(dbHelper, date, status);
             }
 
         } else {
@@ -144,7 +145,18 @@ public class ShowTasksActivity extends AppCompatActivity {
     }
 
     public void createCompletedTaskAdapter() {
-        completedTasks = Task.findCompleted(dbHelper, listId);
+        if (specialList){
+            if (listName.equals("Starred")) {
+                completedTasks = Task.findAllStarred(dbHelper);
+            }else{
+                String date = Today.getDate();
+                String status = "Complete";
+                completedTasks = Task.findToday(dbHelper, date, status);
+            }
+
+        }else{
+            completedTasks = Task.findCompleted(dbHelper, listId);
+        }
         completedTaskAdapter = new TaskAdapter(this, completedTasks);
         completedListView.setAdapter(completedTaskAdapter);
         completedListView.setVisibility(View.GONE);

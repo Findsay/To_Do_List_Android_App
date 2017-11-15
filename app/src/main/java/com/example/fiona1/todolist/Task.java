@@ -292,7 +292,7 @@ public class Task {
         return tasks;
     }
 
-    public static ArrayList<Task> findToday(DBHelper dbHelper, String date) {
+    public static ArrayList<Task> findToday(DBHelper dbHelper, String date, String complete) {
         ArrayList<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -300,7 +300,7 @@ public class Task {
                 " AND " + TASKS_COLUMN_STATUS + " = ? " +
                 "ORDER BY " + TASKS_COLUMN_PINNED + " DESC," + TASKS_COLUMN_DUEDATE + " ASC";
 
-        String[] args = new String[]{date, "Not Complete"};
+        String[] args = new String[]{date, complete};
         Cursor cursor = db.rawQuery(sql, args);
 
         while (cursor.moveToNext()) {
