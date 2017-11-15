@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">To DA!</string>
+    <string name="app_name">To-Da!</string>
     <string name="title_activity_dialog_add_sub_task">dialogAddSubTask</string>
     <string name="Hide">Hide Completed</string>
     <string name="Show">Show Completed</string>
