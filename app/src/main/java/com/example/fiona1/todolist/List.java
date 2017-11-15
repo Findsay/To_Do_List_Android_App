@@ -13,6 +13,8 @@ import static android.os.Build.VERSION_CODES.M;
 import static com.example.fiona1.todolist.DBHelper.LISTS_COLUMN_ID;
 import static com.example.fiona1.todolist.DBHelper.LISTS_COLUMN_NAME;
 import static com.example.fiona1.todolist.DBHelper.LISTS_TABLE_NAME;
+import static com.example.fiona1.todolist.DBHelper.SUBTASKS_COLUMN_ID;
+import static com.example.fiona1.todolist.DBHelper.SUBTASKS_TABLE_NAME;
 import static com.example.fiona1.todolist.DBHelper.TASKS_COLUMN_DUEDATE;
 import static com.example.fiona1.todolist.DBHelper.TASKS_COLUMN_ID;
 import static com.example.fiona1.todolist.DBHelper.TASKS_COLUMN_LISTID;
@@ -84,9 +86,10 @@ public class List {
 
     public boolean delete(DBHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = ("DELETE FROM " + LISTS_TABLE_NAME + " WHERE " + LISTS_COLUMN_ID + " = ?");
         String stringId = String.valueOf(id);
         String[] args = new String[]{stringId};
-        db.delete(LISTS_TABLE_NAME, LISTS_COLUMN_ID + " =?", args);
+        db.execSQL(sql,args);
         return true;
     }
 

@@ -41,6 +41,7 @@ public class ShowTasksActivity extends AppCompatActivity {
     private int listId;
     private String listName;
     private Boolean specialList;
+    private ImageButton deleteList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,15 @@ public class ShowTasksActivity extends AppCompatActivity {
         textListName.setText(listName);
 
         addTask = (Button) findViewById(R.id.btnAddTask);
+        deleteList = (ImageButton)findViewById(R.id.btnDeleteList);
         specialList = (listName.equals("Today") || listName.equals("Starred"));
 
         if (specialList) {
             addTask.setVisibility(View.GONE);
+            deleteList.setVisibility(View.GONE);
         } else {
             addTask.setVisibility(View.VISIBLE);
+            deleteList.setVisibility(View.VISIBLE);
         }
 
 
@@ -165,6 +169,13 @@ public class ShowTasksActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    public void clickDeleteList(View view){
+        List list =  List.findListbyID(dbHelper, listId);
+        list.delete(dbHelper);
+        Intent intent = new Intent(this, ShowListActivity.class);
+        startActivity(intent);
     }
 
 

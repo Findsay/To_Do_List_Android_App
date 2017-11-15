@@ -71,4 +71,6 @@ public class ShowListActivity extends AppCompatActivity {
         list.height = 150 * lists.size();
 
     }
+
+
 }
