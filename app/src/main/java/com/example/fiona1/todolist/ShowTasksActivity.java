@@ -125,12 +125,12 @@ public class ShowTasksActivity extends AppCompatActivity {
     }
 
     public void createTaskAdapter() {
+        String status = "Not Complete";
         if (specialList) {
             if (listName.equals("Starred")) {
-                tasks = Task.findAllStarred(dbHelper);
+                tasks = Task.findAllStarred(dbHelper, status);
             }else{
                 String date = Today.getDate();
-                String status = "Not Complete";
                 tasks = Task.findToday(dbHelper, date, status);
             }
 
@@ -145,12 +145,12 @@ public class ShowTasksActivity extends AppCompatActivity {
     }
 
     public void createCompletedTaskAdapter() {
+        String status = "Complete";
         if (specialList){
             if (listName.equals("Starred")) {
-                completedTasks = Task.findAllStarred(dbHelper);
+                completedTasks = Task.findAllStarred(dbHelper, status);
             }else{
                 String date = Today.getDate();
-                String status = "Complete";
                 completedTasks = Task.findToday(dbHelper, date, status);
             }
 

@@ -44,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void onCreate(SQLiteDatabase db){
         db.execSQL("CREATE TABLE " + LISTS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, count INTEGER)");
-        db.execSQL("CREATE TABLE " + TASKS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, dueDate DATE, notes TEXT, status TEXT, pinned TEXT, listID INTEGER)");
+        db.execSQL("CREATE TABLE " + TASKS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, dueDate DATE, notes TEXT, status TEXT, pinned TEXT, listID INTEGER )");
         db.execSQL("CREATE TABLE " + SUBTASKS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, status TEXT, taskID INTEGER)");
 
     }

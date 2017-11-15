@@ -264,7 +264,7 @@ public class Task {
         return tasks;
     }
 
-    public static ArrayList<Task> findAllStarred(DBHelper dbHelper) {
+    public static ArrayList<Task> findAllStarred(DBHelper dbHelper, String completed) {
         ArrayList<Task> tasks = new ArrayList<>();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -272,7 +272,7 @@ public class Task {
                 " AND " + TASKS_COLUMN_STATUS + " = ? " +
                 "ORDER BY " + TASKS_COLUMN_PINNED + " DESC," + TASKS_COLUMN_DUEDATE + " ASC";
 
-        String[] args = new String[]{"Pinned", "Not Complete"};
+        String[] args = new String[]{"Pinned", completed};
         Cursor cursor = db.rawQuery(sql, args);
 
         while (cursor.moveToNext()) {
