@@ -128,6 +128,9 @@ public class ShowTasksActivity extends AppCompatActivity {
         if (specialList) {
             if (listName.equals("Starred")) {
                 tasks = Task.findAllStarred(dbHelper);
+            }else{
+                String date = Today.getDate();
+                tasks = Task.findToday(dbHelper, date);
             }
 
         } else {
