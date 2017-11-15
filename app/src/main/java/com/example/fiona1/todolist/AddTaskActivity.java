@@ -8,7 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+import static com.example.fiona1.todolist.R.id.txtListName;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -20,6 +26,8 @@ public class AddTaskActivity extends AppCompatActivity {
     private EditText taskNote;
     private Button chooseDate;
     private String date;
+    private int listId;
+    private List list;
 
     DBHelper dbHelper;
 
@@ -28,6 +36,13 @@ public class AddTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+
+        dbHelper = new DBHelper(this);
+        extras = getIntent().getExtras();
+        listId = extras.getInt("listID");
+        list = List.findListbyID(dbHelper, listId);
+        String txtListName = list.getName();
 
         datePicker = new DatePickerFragment();
 
@@ -38,7 +53,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         extras = getIntent().getExtras();
 
-        String txtListName = extras.getString("listName");
+
 
         listName = (TextView) findViewById(R.id.txtTaskListName);
         listName.setText(txtListName);
@@ -48,10 +63,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void addTaskComplete(View button) {
-        dbHelper = new DBHelper(this);
-        extras = getIntent().getExtras();
-        int listId = extras.getInt("listID");
-        String txtListName = extras.getString("listName");
+        String txtListName = list.getName();
 
         String name = taskName.getText().toString();
         String date = chooseDate.getText().toString();
@@ -65,6 +77,10 @@ public class AddTaskActivity extends AppCompatActivity {
         String pinned = "Not Pinned";
         Task task = new Task(name, date, note, status, pinned, listId);
         task.save(dbHelper);
+
+        int taskCount = list.getTaskCount(dbHelper);
+        list.setTaskCount(taskCount);
+        list.update(dbHelper);
 
         Intent intent = new Intent(this, ShowTasksActivity.class);
         intent.putExtra("id", listId);

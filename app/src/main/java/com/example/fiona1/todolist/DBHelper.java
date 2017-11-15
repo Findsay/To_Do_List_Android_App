@@ -20,6 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String LISTS_TABLE_NAME = "lists";
     public static final String LISTS_COLUMN_ID = "id";
     public static final String LISTS_COLUMN_NAME = "name";
+    public static final String LISTS_COLUMN_COUNT = "count";
 
     public static final String TASKS_TABLE_NAME = "tasks";
     public static final String TASKS_COLUMN_ID = "id";
@@ -38,11 +39,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public DBHelper(Context context){
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 5);
     }
 
     public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE " + LISTS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT)");
+        db.execSQL("CREATE TABLE " + LISTS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, count INTEGER)");
         db.execSQL("CREATE TABLE " + TASKS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, dueDate DATE, notes TEXT, status TEXT, pinned TEXT, listID INTEGER)");
         db.execSQL("CREATE TABLE " + SUBTASKS_TABLE_NAME + "(id INTEGER primary key autoincrement, name TEXT, status TEXT, taskID INTEGER)");
 

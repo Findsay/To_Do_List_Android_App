@@ -54,7 +54,7 @@ public class ShowListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String text = txtListName.getText().toString();
-                List list = new List(text);
+                List list = new List(text, 0);
                 list.save(dbHelper);
                 createListAdapter();
             }

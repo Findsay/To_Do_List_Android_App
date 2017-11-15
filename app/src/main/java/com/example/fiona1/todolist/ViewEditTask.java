@@ -136,6 +136,9 @@ public class ViewEditTask extends AppCompatActivity {
 
     public void onClickDelete(View button){
         task.delete(dbHelper);
+        int taskCount = list.getTaskCount(dbHelper);
+        list.setTaskCount(taskCount);
+        list.update(dbHelper);
         Intent intent = new Intent(this, ShowTasksActivity.class);
         intent.putExtra("id", list.getId());
         intent.putExtra("name", list.getName());

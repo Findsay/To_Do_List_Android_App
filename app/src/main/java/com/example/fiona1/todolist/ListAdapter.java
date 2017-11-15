@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -32,6 +34,14 @@ public class ListAdapter extends ArrayAdapter<List> {
 
         TextView listName = (TextView)listItemView.findViewById(R.id.txtListName);
         listName.setText(currentList.getName().toString());
+
+        TextView listCount = (TextView)listItemView.findViewById(R.id.txtListCount);
+        if (currentList.getCount() == 0){
+            listCount.setText("");
+        }else{
+            listCount.setText(currentList.getCount().toString());
+        }
+
 
 
         listItemView.setTag(currentList);

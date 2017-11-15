@@ -181,5 +181,10 @@ public class ShowTasksActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void clickToViewLists(View view){
+        Intent intent = new Intent(this, ShowListActivity.class);
+        startActivity(intent);
+    }
+
 
 }

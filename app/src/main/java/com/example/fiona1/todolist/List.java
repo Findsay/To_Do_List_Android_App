@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import static android.R.id.list;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.M;
+import static com.example.fiona1.todolist.DBHelper.LISTS_COLUMN_COUNT;
 import static com.example.fiona1.todolist.DBHelper.LISTS_COLUMN_ID;
 import static com.example.fiona1.todolist.DBHelper.LISTS_COLUMN_NAME;
 import static com.example.fiona1.todolist.DBHelper.LISTS_TABLE_NAME;
@@ -32,15 +33,18 @@ public class List {
 
     private String name;
     private int id;
+    private int taskCount;
 
 
-    public List(String name) {
+    public List(String name, int taskCount) {
         this.name = name;
+        this.taskCount = taskCount;
     }
 
-    public List(int id, String name) {
+    public List(int id, String name, int taskCount) {
         this.id = id;
         this.name = name;
+        this.taskCount = taskCount;
     }
 
     public String getName() {
@@ -56,6 +60,7 @@ public class List {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(LISTS_COLUMN_NAME, this.name);
+        cv.put(LISTS_COLUMN_COUNT, this.taskCount);
 
         db.insert(LISTS_TABLE_NAME, null, cv);
 
@@ -70,8 +75,9 @@ public class List {
         while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(LISTS_COLUMN_ID));
             String name = cursor.getString(cursor.getColumnIndex(LISTS_COLUMN_NAME));
+            int taskCount = cursor.getInt(cursor.getColumnIndex(LISTS_COLUMN_COUNT));
 
-            List list = new List(id, name);
+            List list = new List(id, name, taskCount);
             lists.add(list);
         }
         cursor.close();
@@ -104,19 +110,20 @@ public class List {
         cursor.moveToFirst();
         int id = cursor.getInt(cursor.getColumnIndex(LISTS_COLUMN_ID));
         String name = cursor.getString(cursor.getColumnIndex(LISTS_COLUMN_NAME));
+        int taskCount = cursor.getInt(cursor.getColumnIndex(LISTS_COLUMN_COUNT));
 
-        List list = new List(id, name);
+        List list = new List(id, name, taskCount);
         cursor.close();
         return list;
     }
 
 
     public static void seedDB(DBHelper dbHelper) {
-        List list = new List("Inbox");
+        List list = new List("Inbox", 0);
         list.save(dbHelper);
-        List list2 = new List("Today");
+        List list2 = new List("Today", 0);
         list2.save(dbHelper);
-        List list3 = new List("Starred");
+        List list3 = new List("Starred", 0);
         list3.save(dbHelper);
     }
 
@@ -128,6 +135,30 @@ public class List {
         Cursor cursor = db.rawQuery(sql, args);
         int count = cursor.getCount();
         return count;
+    }
+
+    public Integer getCount() {
+        return taskCount;
+    }
+
+    public void setTaskCount(int taskCount) {
+        this.taskCount = taskCount;
+    }
+
+    public boolean update(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put(LISTS_COLUMN_NAME, this.name);
+        cv.put(LISTS_COLUMN_COUNT, this.taskCount);
+        String id = String.valueOf(this.id);
+
+        String[] args = new String[]{id};
+
+        db.update(LISTS_TABLE_NAME, cv, LISTS_COLUMN_ID + " =?", args);
+
+        return true;
+
     }
 }
 

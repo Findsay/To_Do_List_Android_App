@@ -33,7 +33,7 @@ public class ToDoListLauncher extends AppCompatActivity {
         defaultLists = new ArrayList<>();
         for (Category category : Category.values()) {
             String name = category.getName();
-            List list = new List(name);
+            List list = new List(name, 0);
             defaultLists.add(list);
         }
 
