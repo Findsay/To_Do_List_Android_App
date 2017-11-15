@@ -53,7 +53,11 @@ public class ViewEditTask extends AppCompatActivity {
         taskName.setEnabled(false);
 
         dueDate = (EditText) findViewById(R.id.editDate2);
-        dueDate.setText(task.getDueDate());
+        if (task.getDueDate().equals("9999/99/99")){
+            dueDate.setText("Not Due Date Set");
+        }else{
+            dueDate.setText(task.getDueDate());
+        }
         dueDate.setEnabled(false);
 
         listName = (TextView) findViewById(R.id.txtListName2);
@@ -124,6 +128,14 @@ public class ViewEditTask extends AppCompatActivity {
 
     public void onClickOk(View button) {
         task.update(dbHelper);
+        Intent intent = new Intent(this, ShowTasksActivity.class);
+        intent.putExtra("id", list.getId());
+        intent.putExtra("name", list.getName());
+        startActivity(intent);
+    }
+
+    public void onClickDelete(View button){
+        task.delete(dbHelper);
         Intent intent = new Intent(this, ShowTasksActivity.class);
         intent.putExtra("id", list.getId());
         intent.putExtra("name", list.getName());

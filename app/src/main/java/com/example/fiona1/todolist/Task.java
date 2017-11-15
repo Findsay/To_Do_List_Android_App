@@ -175,6 +175,15 @@ public class Task {
         return true;
     }
 
+    public boolean delete(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = ("DELETE FROM " + TASKS_TABLE_NAME + " WHERE " + TASKS_COLUMN_ID + " = ?");
+        String stringId = String.valueOf(id);
+        String[] args = new String[]{stringId};
+        db.execSQL(sql,args);
+        return true;
+    }
+
     public static void seedDB(DBHelper dbHelper) {
         ArrayList<List> lists = List.all(dbHelper);
         for (List list : lists) {
