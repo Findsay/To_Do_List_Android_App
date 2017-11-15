@@ -77,6 +77,15 @@ public class SubTask {
         return true;
     }
 
+    public boolean delete(DBHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String sql = ("DELETE FROM " + SUBTASKS_TABLE_NAME + " WHERE " + SUBTASKS_COLUMN_ID + " = ?");
+        String stringId = String.valueOf(id);
+        String[] args = new String[]{stringId};
+        db.execSQL(sql,args);
+        return true;
+    }
+
     public static ArrayList<SubTask> findByTaskId(DBHelper dbHelper, int taskId) {
         ArrayList<SubTask> subtasks = new ArrayList<>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();

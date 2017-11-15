@@ -142,4 +142,10 @@ public class ViewEditTask extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClickSubTaskDelete(View view){
+        SubTask subTask = (SubTask) view.getTag();
+        subTask.delete(dbHelper);
+        createListAdapter();
+    }
+
 }

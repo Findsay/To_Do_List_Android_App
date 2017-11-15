@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -21,6 +22,7 @@ public class SubTaskAdapter extends ArrayAdapter<SubTask> {
 
     private CheckBox taskCheckbox;
     private TextView subTaskName;
+    private ImageButton closeBtn;
 
     public SubTaskAdapter(Context context, ArrayList<SubTask> subtasks){
         super(context, 0, subtasks);
@@ -37,6 +39,8 @@ public class SubTaskAdapter extends ArrayAdapter<SubTask> {
         taskCheckbox.setTag(currentSubTask);
         subTaskName = (TextView)listItemView.findViewById(R.id.txtSubTask);
         subTaskName.setText(currentSubTask.getName());
+        closeBtn = (ImageButton) listItemView.findViewById(R.id.btnDeleteSubTask);
+        closeBtn.setTag(currentSubTask);
 
         if (currentSubTask.getStatus().equals("Complete")){
             taskCheckbox.setChecked(true);
